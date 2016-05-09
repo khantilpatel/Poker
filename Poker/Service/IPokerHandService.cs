@@ -38,7 +38,7 @@ namespace Poker.Service
         PokerHandScore checkFlush(Hand hand);
 
 
-        int compareHand(Hand hand1, Hand hand2);
+       // int compareHand(Hand hand1, Hand hand2);
 
     }
 }

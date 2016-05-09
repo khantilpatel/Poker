@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace Poker.Entity
 {
+    /// <summary>
+    /// Player Class represents a Poker Player with Name and Hand objects
+    /// </summary>
     public class Player
     {
         private string m_name;
@@ -29,10 +32,40 @@ namespace Poker.Entity
         {
             m_name = name;
             m_hand = hand;        
-        }    
+        }
+
+        /// <summary>
+        /// Static helper method for Player class to check if two players has 
+        /// equal hands based on high card.
+        /// </summary>
+        /// <param name="player1"></param>
+        /// <param name="player2"></param>
+        /// <returns></returns>
+        public static bool playerHandEquals(Player player1, Player player2)
+        {
+            int cardIndex = 0;
+            bool result = true; // assume first cards are equal
+
+            while (cardIndex < player1.Hand.Cards.Count && result == true)
+            {
+                if (player1.Hand.Cards[cardIndex].Rank == player2.Hand.Cards[cardIndex].Rank)
+                    result = true;
+                else if (player1.Hand.Cards[cardIndex].Rank < player2.Hand.Cards[cardIndex].Rank)
+                    result = false;
+                else if (player1.Hand.Cards[cardIndex].Rank > player2.Hand.Cards[cardIndex].Rank)
+                    result = false;
+
+                cardIndex++;
+            }
+
+            return result;
+        }
 
     }
 
+    /// <summary>
+    /// A IComparer implementation for Player to sort the hand by HandType and HandScore
+    /// </summary>
     public class PlayerPokerHandScoreComparer : IComparer<Player>
     {
         public int Compare(Player player1, Player player2)
@@ -47,6 +80,10 @@ namespace Poker.Entity
             return result;
         }
     }
+
+    /// <summary>
+    /// /// A IComparer implementation for Player to sort the players hand based on High Card
+    /// </summary>
     public class PlayerHighCardComparer : IComparer<Player>
     {
         public int Compare(Player player1, Player player2)

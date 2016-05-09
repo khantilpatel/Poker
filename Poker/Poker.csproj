@@ -40,16 +40,19 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\Card.cs" />
+    <Compile Include="Entity\CardRank.cs" />
+    <Compile Include="Entity\CardSuits.cs" />
+    <Compile Include="Entity\Deck.cs" />
     <Compile Include="Entity\Hand.cs" />
     <Compile Include="Entity\Player.cs" />
+    <Compile Include="Entity\PokerGenericException.cs" />
     <Compile Include="Entity\PokerHandScore.cs" />
+    <Compile Include="Entity\PokerHandType.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Service\IPokerHandService.cs" />
     <Compile Include="Service\IPokerService.cs" />
     <Compile Include="Service\PokerHandService.cs" />
     <Compile Include="Service\PokerService.cs" />
-    <Compile Include="Utility\CalculateUtility.cs" />
-    <Compile Include="Utility\ValidationUtility.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

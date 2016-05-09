@@ -11,16 +11,27 @@ namespace Poker.Service
     {
         IPokerHandService m_pokerHandService;
         
+        /// <summary>
+        /// Using Inversion of control using dependency injection pattern to 
+        /// decouple the services.
+        /// </summary>
+        /// <param name="pokerHandService"></param>
         public PokerService(IPokerHandService pokerHandService)
         {
             m_pokerHandService = pokerHandService;        
         }
 
+        /// <summary>
+        /// Process each player's hand and determine the winners.
+        /// Try to break the tie using kicker cards where needed.
+        /// </summary>
+        /// <param name="players"></param>
+        /// <returns></returns>
         public List<Player> evaluateHands(List<Player> players)
         {
             foreach(Player player in players)
             {
-                this.whatDoIHave(player);
+                this.whatDoThePlayerHave(player);
             }
 
             players.Sort(new PlayerPokerHandScoreComparer());
@@ -30,7 +41,12 @@ namespace Poker.Service
             return result;
         }
 
-        public void whatDoIHave(Player player)
+        /// <summary>
+        /// Determine what type of hand the player have and what is the rank for that hand.
+        /// E.g., Flush Heart(Q-J-10-8-2) has a Queen's rank. ThreeOfAKind H3,D3,S3,C4,S6 has a 3 rank
+        /// </summary>
+        /// <param name="player"></param>
+        public virtual void whatDoThePlayerHave(Player player)
         {
 
             PokerHandScore handScore = NullPokerHandScore.Instance;
@@ -53,7 +69,12 @@ namespace Poker.Service
             }            
         }
 
-
+        /// <summary>
+        /// The backbone of the pocker logic is tieBraker method. If one clear winner then return
+        /// that, else if there is a tie then try to resolve it using tieBreakerWithHighCard.
+        /// </summary>
+        /// <param name="players"></param>
+        /// <returns></returns>
         public List<Player> tieBreaker(List<Player> players)
         {
             List<Player> winnerPlayers = new List<Player>();
@@ -82,47 +103,34 @@ namespace Poker.Service
             return winnerPlayers;           
         }   
 
+        /// <summary>
+        /// Tries to break the ties considering High Cards in multiple hands.
+        /// E.g., Consider hands Spade(Q, 10, 10, 5, 1) Heart(Q, 10, 10, 5, 1) Diamond(Q, 10, 10, 7, 1),
+        /// the Diamond Hand wins, as it has 7 as a High card compared to others.
+        /// This will be the case for Flush, OnePair hands and not for ThreeOfAKind
+        /// </summary>
+        /// <param name="tiePlayers"></param>
+        /// <returns></returns>
         public List<Player> tieBreakerWithHighCard(List<Player> tiePlayers)
         {
             List<Player> winnerPlayers = new List<Player>();
 
+            // Sort players according to the highcard ranking 
             tiePlayers.Sort(new PlayerHighCardComparer());
 
+            // Now the Winner players are at the top of the list, get if one winner else the tie winners
             int index = 1;
             Player winnerPlayer = tiePlayers[0];
             winnerPlayers.Add(winnerPlayer);
 
             while (index < tiePlayers.Count &&
-               playerHandEquals(winnerPlayer, tiePlayers[index]))
+               Player.playerHandEquals(winnerPlayer, tiePlayers[index]))
             {
                 winnerPlayers.Add(tiePlayers[index]);
                 index++;
             }          
 
             return winnerPlayers;
-        }
-
-
-        bool playerHandEquals(Player player1, Player player2) 
-        {
-            int cardIndex = 0;
-            bool result = true; // assume first cards are equal
-
-            while (cardIndex < player1.Hand.Cards.Count && result == true)
-            {
-                if (player1.Hand.Cards[cardIndex].Rank == player2.Hand.Cards[cardIndex].Rank)
-                    result = true;
-                else if (player1.Hand.Cards[cardIndex].Rank < player2.Hand.Cards[cardIndex].Rank)
-                    result = false;
-                else if (player1.Hand.Cards[cardIndex].Rank > player2.Hand.Cards[cardIndex].Rank)
-                    result = false;
-
-                cardIndex++;
-            }
-
-            return result;
-        }
-
-     
+        }     
     }
 }

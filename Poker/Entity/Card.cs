@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Poker.Entity
 {    
-
+    /// <summary>
+    /// Card class represents a card in the Deck with a Suit and Rank.
+    /// </summary>
     public class Card : IComparable<Card>
     {
         private CardRank m_rank;
@@ -31,48 +33,15 @@ namespace Poker.Entity
             set { m_suit = value; }
         }
 
+        /// <summary>
+        /// CompareTo implementation for sorting by Rank.
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
         public int CompareTo(Card other) 
         {
             return other.Rank.CompareTo(this.Rank);        
         }
 
     }
-
-    public enum CardRank
-    {
-        Two = 2,
-        Three = 3,
-        Four = 4,
-        Five = 5,
-        Six = 6,
-        Seven =7,
-        Eight =8,
-        Nine = 9,
-        Ten = 10,
-        Jack = 11,
-        Queen = 12,
-        King = 13,
-        Ace = 14
-    };
-
-    public enum CardSuits
-    {
-        Club, Diamond, Heart, Spade
-    }
-
-    public enum PokerHandType
-    {
-        None = 0,
-        HighCard = 2,
-        OnePair = 4,
-        TwoPair = 8,
-        ThreeOfAKind = 16,
-        Straight = 32,
-        Flush = 64,
-        FullHouse = 128,
-        FourOfAKind = 256,
-        StraightFlush = 512
-    }
-   
-
 }

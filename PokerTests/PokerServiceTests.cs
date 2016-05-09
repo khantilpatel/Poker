@@ -31,7 +31,7 @@ namespace PokerTests
             Player player = new Player("Joe", hand);
 
             // When calls whatDoIHave
-            pokerService.whatDoIHave(player);
+            pokerService.whatDoThePlayerHave(player);
 
             // Then the player should have a PokerHandType.Flush
             Assert.IsTrue(player.Hand.PokerHandScore.Type == PokerHandType.Flush);
@@ -47,7 +47,7 @@ namespace PokerTests
             Player player = new Player("Joe", hand);
 
             // When calls whatDoIHave
-            pokerService.whatDoIHave(player);
+            pokerService.whatDoThePlayerHave(player);
 
             // Then the player should have a PokerHandType.Flush
             Assert.IsTrue(player.Hand.PokerHandScore.Type == PokerHandType.ThreeOfAKind);
@@ -64,7 +64,7 @@ namespace PokerTests
             Player player = new Player("Joe", hand);
 
             // When calls whatDoIHave
-            pokerService.whatDoIHave(player);
+            pokerService.whatDoThePlayerHave(player);
 
             // Then the player should have a PokerHandType.OnePair
             Assert.IsTrue(player.Hand.PokerHandScore.Type == PokerHandType.OnePair);
@@ -90,7 +90,7 @@ namespace PokerTests
             // When hands are sorted based on HandType and its score
             foreach (Player player in players)
             {
-                pokerService.whatDoIHave(player);
+                pokerService.whatDoThePlayerHave(player);
             }
 
             players.Sort(new PlayerPokerHandScoreComparer());        
@@ -125,7 +125,7 @@ namespace PokerTests
             // When hands are sorted based on HandType and its score
             foreach (Player player in players)
             {
-                pokerService.whatDoIHave(player);
+                pokerService.whatDoThePlayerHave(player);
             }
 
             players.Sort(new PlayerPokerHandScoreComparer());      
@@ -390,6 +390,34 @@ namespace PokerTests
             players.Add(new Player("Joe", MockObjectHelper.handExample2Joe()));
             players.Add(new Player("Jen", MockObjectHelper.handExample2Jen()));
             players.Add(new Player("Bob", MockObjectHelper.handExample2Bob()));
+
+            // When hands are evaluated
+            List<Player> result = pokerService.evaluateHands(players);
+
+            // Then the player list should return two players sharing the pot
+            Assert.IsTrue(validSortOrder.Count == result.Count);
+            int index = 0;
+            foreach (string player in validSortOrder)
+            {
+                Assert.IsTrue(player.Equals(result[index].Name));
+                index++;
+            }
+        }
+
+        [TestMethod]
+        public void evaluateHands_WhenMy_ReturnsJen()
+        {
+            // Given 3 hands with two clear tie and other loser
+            IPokerService pokerService = setUp();
+            List<Player> players = new List<Player>(4);
+            List<string> validSortOrder = new List<string>()
+	        {
+	            "Jen"              
+	        };
+
+            players.Add(new Player("Joe", MockObjectHelper.handLowHighCard4()));
+            players.Add(new Player("Jen", MockObjectHelper.handLowHighCard5()));
+            //players.Add(new Player("Bob", MockObjectHelper.handExample2Bob()));
 
             // When hands are evaluated
             List<Player> result = pokerService.evaluateHands(players);

@@ -1,5 +1,4 @@
 ﻿using Poker.Entity;
-using Poker.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -129,35 +128,20 @@ namespace Poker.Service
             return pokerHandScore;
         }           
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <returns></returns>
         PokerHandScore IPokerHandService.checkHighCard(Hand hand)
         {
             PokerHandScore score = new PokerHandScore(PokerHandType.HighCard,
-             CalculateUtility.handScore(hand.Cards));
+             (int)hand.Cards[0].Rank);
 
             return score;
         }
 
-        public int compareHand(Hand hand1, Hand hand2)
-        {
-            int cardIndex = 0;
-            int result = 0; // assume first cards are equal
-
-            while (cardIndex < hand1.Cards.Count && result == 0)
-            {
-                if (hand1.Cards[cardIndex].Rank == hand2.Cards[cardIndex].Rank)
-                    result = 0;
-
-                if (hand1.Cards[cardIndex].Rank < hand2.Cards[cardIndex].Rank)
-                    result = -1;
-
-                if (hand1.Cards[cardIndex].Rank > hand2.Cards[cardIndex].Rank)
-                    result = 1;
-
-                cardIndex++;
-            }
-
-            return result;
-        }
+        
         
    
     }

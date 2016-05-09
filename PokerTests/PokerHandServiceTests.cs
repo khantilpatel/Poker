@@ -131,20 +131,6 @@ namespace PokerTests
             Assert.IsTrue(pokerHandScore.Type == PokerHandType.None);
             Assert.IsTrue(pokerHandScore.isNull());
         }
-
-        [TestMethod]
-        public void compareHand_WhenHandWithHighCards_ReturnHighestHand()
-        {
-            // Given 5 players with different hands
-            IPokerHandService pokerHandService = new PokerHandService();
-            Hand hand1 = MockObjectHelper.handExample2Joe();
-            Hand hand2 = MockObjectHelper.handExample2Jen();           
-
-            // When hands are comnpared
-            int result = pokerHandService.compareHand(hand1,hand2);
-
-            // Then the player list should return single winner player
-            Assert.IsTrue(result == -1);
-        }
+            
     }
 }

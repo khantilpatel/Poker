@@ -4,7 +4,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{4B77F5F1-08A5-4D2F-9BB2-DC59062C7933}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>PokerTests</RootNamespace>
     <AssemblyName>PokerTests</AssemblyName>
@@ -55,7 +55,9 @@
   <ItemGroup>
     <Compile Include="MockObjectHelper.cs" />
     <Compile Include="PokerHandServiceTests.cs" />
+    <Compile Include="PokerLibraryExtensibilityDemo.cs" />
     <Compile Include="PokerServiceTests.cs" />
+    <Compile Include="PokerSimulatorTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

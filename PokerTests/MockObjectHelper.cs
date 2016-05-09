@@ -226,6 +226,33 @@ namespace PokerTests
                 new Card(CardSuits.Diamond, CardRank.Jack),
                 new Card(CardSuits.Heart, CardRank.Seven)
             });
+       }
+
+       public static Hand handLowHighCard4()
+       {
+           return new Hand(new List<Card>()
+            {
+                // D2-H6-C5-DJ-H7
+                new Card(CardSuits.Diamond, CardRank.Queen),
+                new Card(CardSuits.Heart, CardRank.Queen),
+                new Card(CardSuits.Club, CardRank.Three),
+                new Card(CardSuits.Diamond, CardRank.Four),
+                new Card(CardSuits.Heart, CardRank.Five)
+            });
+       }
+
+
+       public static Hand handLowHighCard5()
+       {
+           return new Hand(new List<Card>()
+            {
+                // D2-H6-C5-DJ-H7
+                new Card(CardSuits.Diamond, CardRank.Queen),
+                new Card(CardSuits.Heart, CardRank.Queen),
+                new Card(CardSuits.Club, CardRank.Ten),
+                new Card(CardSuits.Diamond, CardRank.Four),
+                new Card(CardSuits.Heart, CardRank.Five)
+            });
        }     
     }
 }
