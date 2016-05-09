@@ -162,25 +162,6 @@ namespace PokerTests
         }
         
 
-        ///////////////////////
-        [TestMethod]
-        public void evaluateHands_WhenOneWinner_ReturnsWinner()
-        {
-            // Given 3 hands with one clear winner   
-            IPokerService pokerService = setUp();
-            List<Player> players = new List<Player>(4);
-            string winner = "Jen";
-            players.Add(new Player("Jen", MockObjectHelper.handOnePairValid()));
-            players.Add(new Player("Bob", MockObjectHelper.handExample2Bob()));
-            players.Add(new Player("Andrew", MockObjectHelper.handExample2Jen()));
-
-            // When hands are evaluated
-            List<Player> result = pokerService.evaluateHands(players);
-
-            // Then the player list should return single winner player
-
-        }
-
         [TestMethod]
         public void evaluateHands_WhenOneWinnerWithFlush_ReturnsWinner()
         {

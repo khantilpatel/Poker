@@ -53,6 +53,12 @@ namespace Poker.Entity
                 && (Type == handScore.Type);              
         }
 
+        public override int GetHashCode()
+        {
+            return (int)Score ^ (int)Type;
+        }         
+
+
         public virtual bool isNull()
         {
             return false;
