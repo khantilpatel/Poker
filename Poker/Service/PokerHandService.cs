@@ -108,22 +108,22 @@ namespace Poker.Service
 
             foreach (KeyValuePair<CardRank, int> entry in hand.HashRank)
             {
-                if (twoCardsOfSameRank && entry.Value == TWO_CARDS)
+                if (entry.Value > TWO_CARDS)
+                {
+                    otherTwoCardsNotSameRank = false;
+                }else if (twoCardsOfSameRank && entry.Value >= TWO_CARDS)
                 {
                     otherTwoCardsNotSameRank = false;
                 }else if (entry.Value == TWO_CARDS)
                 {
                     score = (int)entry.Key;
                     twoCardsOfSameRank = true;
-                }
-                
-               
-
+                }         
             }
 
             if (twoCardsOfSameRank && otherTwoCardsNotSameRank)
             {
-                pokerHandScore = new PokerHandScore(PokerHandType.ThreeOfAKind, score);
+                pokerHandScore = new PokerHandScore(PokerHandType.OnePair, score);
             }           
 
             return pokerHandScore;
@@ -137,6 +137,27 @@ namespace Poker.Service
             return score;
         }
 
+        public int compareHand(Hand hand1, Hand hand2)
+        {
+            int cardIndex = 0;
+            int result = 0; // assume first cards are equal
+
+            while (cardIndex < hand1.Cards.Count && result == 0)
+            {
+                if (hand1.Cards[cardIndex].Rank == hand2.Cards[cardIndex].Rank)
+                    result = 0;
+
+                if (hand1.Cards[cardIndex].Rank < hand2.Cards[cardIndex].Rank)
+                    result = -1;
+
+                if (hand1.Cards[cardIndex].Rank > hand2.Cards[cardIndex].Rank)
+                    result = 1;
+
+                cardIndex++;
+            }
+
+            return result;
+        }
         
    
     }

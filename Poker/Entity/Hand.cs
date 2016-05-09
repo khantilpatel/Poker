@@ -20,15 +20,15 @@ namespace Poker.Entity
         // Spade: 3, Diamond : 1, Club: 1, Heart: 0
         private Dictionary<CardSuits, int> hashSuit;
 
-        private List<PokerHandScore> m_pokerHandScores;
+        private PokerHandScore m_pokerHandScore;
 
         public Hand(List<Card> cards) 
         {
             m_cards = cards;
 
             m_cards.Sort();
-            hashRank = CalculateUtility.hashCardsByRank(cards);
-            hashSuit = CalculateUtility.hashCardsBySuit(cards);
+            hashRank = this.hashCardsByRank(cards);
+            hashSuit = this.hashCardsBySuit(cards);
         }
 
         public List<Card> Cards
@@ -37,10 +37,10 @@ namespace Poker.Entity
             //set { m_cards = value; }
         }     
 
-        public List<PokerHandScore> PokerHandScores
+        public PokerHandScore PokerHandScore
         {
-            get { return m_pokerHandScores; }
-            set { m_pokerHandScores = value; }
+            get { return m_pokerHandScore; }
+            set { m_pokerHandScore = value; }
         }
 
         public Dictionary<CardRank, int> HashRank
@@ -53,6 +53,46 @@ namespace Poker.Entity
         {
             get { return hashSuit; }
             set { hashSuit = value; }
+        }
+
+
+        private Dictionary<CardRank, int> hashCardsByRank(List<Card> cards)
+        {
+            Dictionary<CardRank, int> dict = new Dictionary<CardRank, int>();
+
+            foreach (Card card in cards)
+            {
+                if (dict.ContainsKey(card.Rank))
+                {
+                    dict[card.Rank] += 1;
+                }
+                else
+                {
+                    dict.Add(card.Rank, 1);
+                }
+            }
+
+            return dict;
+        }
+
+        private Dictionary<CardSuits, int> hashCardsBySuit(List<Card> cards)
+        {
+            Dictionary<CardSuits, int> dict = new Dictionary<CardSuits, int>();
+
+            foreach (Card card in cards)
+            {
+                if (dict.ContainsKey(card.Suit))
+                {
+                    dict[card.Suit] += 1;
+                }
+                else
+                {
+                    dict.Add(card.Suit, 1);
+                }
+
+            }
+
+            return dict;
         }
     }
 

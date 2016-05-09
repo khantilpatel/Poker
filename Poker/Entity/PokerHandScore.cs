@@ -11,7 +11,7 @@ namespace Poker.Entity
     /// </summary>
     public class PokerHandScore
     {
-        private PokerHandType m_type;
+        private PokerHandType m_handType;
 
         public PokerHandScore(){}
 
@@ -23,8 +23,8 @@ namespace Poker.Entity
 
         public PokerHandType Type
         {
-            get { return m_type; }
-            set { m_type = value; }
+            get { return m_handType; }
+            set { m_handType = value; }
         }
 
         /// <summary>
@@ -37,6 +37,20 @@ namespace Poker.Entity
         {
             get { return m_score; }
             set { m_score = value; }
+        }
+
+        public override bool Equals(object value)
+        {
+            if (value == null)
+            {
+                return false;
+            }
+
+            PokerHandScore handScore = value as PokerHandScore;
+
+            return (handScore != null)
+                && (Score == handScore.Score)
+                && (Type == handScore.Type);              
         }
 
         public virtual bool isNull()

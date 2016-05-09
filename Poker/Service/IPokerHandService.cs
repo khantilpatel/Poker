@@ -35,7 +35,10 @@ namespace Poker.Service
         /// </summary>
         /// <param name="hand"></param>
         /// <returns></returns>
-        PokerHandScore checkFlush(Hand hand);      
+        PokerHandScore checkFlush(Hand hand);
+
+
+        int compareHand(Hand hand1, Hand hand2);
 
     }
 }

@@ -7,15 +7,15 @@ using System.Threading.Tasks;
 
 namespace Poker.Service
 {
-    interface IPokerService
+    public interface IPokerService
     {
+        void whatDoIHave(Player player);
+
+        List<Player> tieBreaker(List<Player> players);
+
+        List<Player> tieBreakerWithHighCard(List<Player> players);
+
         List<Player> evaluateHands(List<Player> players);
-
-        Hand whatDoIHave(Hand hand);
-
-        int compareAllHands(int indexHand1, int indexHand2);
-
-        int compareHand(Hand hand1, Hand hand2);
 
 
     }
